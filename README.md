@@ -39,11 +39,35 @@ The data used in this paper consists of two parts:
   > Chen C, Chen Q, Do MN, Koltun V (2019) Seeing Motion in the Dark. *Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)*, 3185-3194.
 The dataset is available at:  
 [https://github.com/cchen156/Seeing-Motion-in-the-Dark](https://github.com/cchen156/Seeing-Motion-in-the-Dark)  
-*Note: Due to file size limitations, we do not directly provide the dataset here.*
 
+Due to its size, the dataset is not included in this repository. To download and set it up, please run the following commands from the project's root directory:
+
+```bash
+# Create data directory
+mkdir -p data
+# Download the dataset
+wget -P ./data https://storage.googleapis.com/isl-datasets/DRV/VBM4D_rawRGB.zip
+# If you don't have wget, use curl:
+# curl -L https://storage.googleapis.com/isl-datasets/DRV/VBM4D_rawRGB.zip -o ./data/VBM4D_rawRGB.zip
+# Unzip the file and remove the archive
+unzip ./data/VBM4D_rawRGB.zip -d ./data
+rm ./data/VBM4D_rawRGB.zip
+```
+After running these commands, the required data will be located in the ./data/VBM4D_rawRGB directory.
+he final directory structure should look like this:
+```
+./
+├── data/
+│   └── VBM4D_rawRGB/
+│       ├── M0001/
+│       ├── M0002/
+│       └── ... (other scenes)
+├── scripts/
+└── README.md
+```
 
 ## Code
-This code can be run in MATLAB R2024a.
+This code can be run in [MATLAB R2024a](https://ww2.mathworks.cn/products/new_products/release2024a.html).
 
 This directory contains the folders `src` and `scripts`:
 * `src`: includes the source code of the paper. See `src/README.md` for a description of this folder. This folder is organized as follows:
@@ -110,8 +134,12 @@ Note: The code in `scripts/root_pcp_code/` directory is adapted from the officia
 The original source code was obtained from the paper's [supplementary material](https://openreview.net/attachment?id=NNZ0caVe2ak&name=supplementary_material).
 We have made minor modifications to the `root_pcp.m` file to extract additional outputs required for our project.
 
+
+## Ongoing Development
+
+This code is being developed on an on-going basis at the author's [GitHub repository](https://github.com/MatOpt/srPCP_code).
+
 ## Support
 
 For questions, bug reports, or feature requests, please file an issue through the GitHub [issue tracker](https://github.com/MatOpt/srPCP_code/issues/new).
 
-This project is under active development. You can follow its progress at [GitHub repository](https://github.com/MatOpt/srPCP_code).

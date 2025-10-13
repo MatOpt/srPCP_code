@@ -90,33 +90,12 @@ This function solves the subproblem for updating both $S$ and $L$ components. It
 
 $$\min_s \|s-a\|_2 + \lambda \|s\|_1$$
 
-**Key Features:**
-- Handles special cases (zero vectors, boundary values for lambda)
-- Uses sorting and cumulative sum techniques for efficient computation
-- Returns the solution along with performance metrics
 
 **Usage:**
 ```matlab
 [normdiff, k, s] = UpdateS_sub(a, lambda);
 ```
 
-## Workflow
-
-The algorithm follows these steps:
-
-1. Initialize matrices $L$ and $S$ (typically as zero matrices)
-2. Iterate between:
-   a. Updating $S$ using the current $L$ and the UpdateS function
-   b. Updating $L$ using the current $S$ and the UpdateL function
-3. Track convergence using the objective function value and other metrics
-4. Terminate when convergence criteria are met or maximum iterations/time is reached
-
-
-## Authors
-
-- Shengxiang Deng sxdeng21@m.fudan.edu.cn
-- Xudong Li    lixudong@fudan.edu.cn
-- Yangjing Zhang  yangjing.zhang@amss.ac.cn
 
 ## Examples of Using Different Options
 
@@ -204,9 +183,3 @@ options.L_rank = 50; % Higher initial rank guess
 | `maxtime` | Maximum allowed computation time (seconds) | `3600*5` (5 hours) |
 | `update_method` | Method for updating L (`'base'` or `'overparametrized'`) | `'base'` |
 | `L_rank` | Initial rank guess for overparametrized method | `int64(n2 / 1000) + 1` |
-
-## References
-
-For more details on the algorithm and its theoretical foundations, please refer to our paper:
-
-Shengxiang Deng, Xudong Li, and Yangjing Zhang (2025). "Alternating minimization for square root principal component pursuit." INFORMS Journal on Computing. https://doi.org/10.1287/ijoc.2025.1105

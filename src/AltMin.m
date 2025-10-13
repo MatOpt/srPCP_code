@@ -1,13 +1,3 @@
-%% Alternating minimization for solving the 
-%% square root principle component pursuit (srPCP) problem
-%% min_{L,S} \|L\|_* + lambda \|S\|_1 + mu \|L+S-D\|_F
-%% D is a given n1*n2 matrix, WLOG assume n1 >= n2
-%% lambda > 0, mu > 0 are given penalty parameters
-%% \| \|_* nuclear norm, \| \|_1 \ell_1 norm, \| \|_F Frobenius norm
-%%
-%% AltMin: Copyright (c) 2021
-%% Yangjing Zhang 27 Dec 2021
-%%
 function [L,S,obj,iter,runhist] = AltMin(D,lambda,mu,options)
 [n1,n2] = size(D);
 fprintf('\n-------------Alternating minimization for srPCP-------------');
