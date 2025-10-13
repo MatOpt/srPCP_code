@@ -5,44 +5,21 @@
 This archive is distributed in association with the [INFORMS Journal on Computing](https://pubsonline.informs.org/journal/ijoc) under the [MIT License](LICENSE).
 
 The software and data in this repository are a snapshot of the software and data that were used in the research reported in the paper [Alternating minimization for square root principal component pursuit](https://doi.org/10.1287/ijoc.2025.1105) by Shengxiang Deng, Xudong Li, and Yangjing Zhang.
+
 **Important: This project is under active development. The official and most up-to-date version of this code is maintained at the [GitHub repository](https://github.com/MatOpt/srPCP_code). For the latest updates, bug reports, or support requests, please visit the repository and use the issue tracker.**
 
 ## Cite
 
 To cite the contents of this repository, please cite both the paper and this repo, using their respective DOIs.
+- https://doi.org/10.1287/ijoc.2025.1105
 
-[The journal article](https://doi.org/10.1287/ijoc.2025.1105):
-```bibtex
-@misc{deng2025alternating,
-  author =        {Shengxiang Deng, Xudong Li and Yangjing Zhang},
-  publisher =     {INFORMS Journal on Computing},
-  title =         {Alternating minimization for square root principal component pursuit}, 
-  year =          {2025},
-  doi =           {https://doi.org/10.1287/ijoc.2025.1105},
-  url =           {https://github.com/INFORMSJoC/2025.1105}, 
-  note =          {Available for download at https://github.com/INFORMSJoC/2025.1105},
-} 
-```
-[This repository](https://doi.org/10.1287/ijoc.2025.1105.cd):
-```bibtex
-@misc{deng2025alternating,
-  author =        {Shengxiang Deng, Xudong Li and Yangjing Zhang},
-  publisher =     {INFORMS Journal on Computing},
-  title =         {Alternating minimization for square root principal component pursuit}, 
-  year =          {2025},
-  doi =           {https://doi.org/10.1287/ijoc.2025.1105}
-}   
-```
-To cite the contents of this repository, please cite both the paper and this repo, using their respective DOIs.
-https://doi.org/10.1287/ijoc.2025.1105
-
-https://doi.org/10.1287/ijoc.2025.1105.cd
+- https://doi.org/10.1287/ijoc.2025.1105.cd
 
 Below is the BibTex for citing this snapshot of the repository.
 
 ```
 @misc{deng2025alternating,
-  author =        {Shengxiang Deng, Xudong Li and Yangjing Zhang},
+  author =        {Shengxiang Deng and Xudong Li and Yangjing Zhang},
   publisher =     {INFORMS Journal on Computing},
   title =         {Alternating minimization for square root principal component pursuit}, 
   year =          {2025},
@@ -113,7 +90,7 @@ The results are presented across multiple files containing numerical experiments
   - Shows time differences between `AltMin`, `Acc_AltMin`, and `ADMM` methods
 
 * `table3_result.txt`: Instance-specific results with columns:
-  - Name (e.g., M0008), Time, Objective value,  Iteration count and dimension
+  - Name (e.g., M0008), Time, Objective value,  Iteration count, and Dimension
 
 * `table4_result.txt`: Rank analysis with columns:
   - Name, Time, Dimension, SVD time, Sorting time, and Final rank
@@ -137,4 +114,4 @@ We have made minor modifications to the `root_pcp.m` file to extract additional 
 
 For questions, bug reports, or feature requests, please file an issue through the GitHub [issue tracker](https://github.com/MatOpt/srPCP_code/issues/new).
 
-This project is under active development. You can follow its progress at the official [GitHub repository](https://github.com/MatOpt/srPCP_code).
+This project is under active development. You can follow its progress at [GitHub repository](https://github.com/MatOpt/srPCP_code).
