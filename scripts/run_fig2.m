@@ -52,7 +52,7 @@ for j = 1:num_datasets
     
     % Load all images in the sequence
     for i = 1:number_files
-        rgb = imread([str,files(i).name]);
+        rgb = imread(fullfile(image_folder, files(i).name));
         grayim = im2double(rgb2gray(rgb));
         grayim = imresize(grayim,[m,n]);
         I = reshape(grayim,[],1);

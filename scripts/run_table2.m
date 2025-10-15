@@ -50,7 +50,7 @@ for i = 1:size(para,1)
         V = randn(n2,r)/sqrt(n2);
         L = U*V';
         % noise
-
+s
         Z = sigma*randn(n1,n2);
         % D
         D = L +S+ Z; 
@@ -90,6 +90,5 @@ for i = 1:size(para,1)
 
         fprintf(fid,"ADMM   %d   %d   %1.0e   %5.2f  %d   %d   %d \n",n1,r,sigma,...
             runhist_pcp.obj(end),round(t3),0,0);
-
   end
 

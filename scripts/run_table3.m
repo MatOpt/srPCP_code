@@ -10,22 +10,22 @@ if ~exist(output_filepath,'file')
     fclose(fid);
 end
 fid = fopen(output_filepath,"a");
-%%%%%read the vedio%%%%%%%%%%%%%%%
+
 str = '../data/VBM4D_rawRGB/';
-fig_list = ["M0008","M0009","M0016","M0017"];
-fprintf(fid,"Name  Time  obj  iter  dim");
+fig_list = ["M0005","M0009","M0016","M0017"];
+fprintf(fid,"Name  Time  obj   iter  dim\n");
 for j = 1:length(fig_list)
-    fig = strcat(str,fig_list(j));
-    files = dir(strcat(fig,'*.png'));
+    fig = fullfile(str,fig_list(j));
+    files = dir(fullfile(fig,'*.png'));
     number_files = length(files);
     n2 = number_files;
-    info = imfinfo([str,files(1).name]);
+    info = imfinfo(fullfile(fig,files(1).name));
     m = info.Width;
     n = info.Height;
     n1 = m * n;
     Im = zeros(n1,number_files);
     for i=1:number_files
-        rgb = imread([str,files(i).name]);
+        rgb = imread(fullfile(fig,files(i).name));
         grayim = im2double(rgb2gray(rgb));
         grayim = imresize(grayim,[m,n]);
         I = reshape(grayim,[],1);
@@ -46,8 +46,8 @@ for j = 1:length(fig_list)
     [Lbaro,Sbaro,objo,itero,runhisto] = AltMin(Im,lambda,mu,options);
 
     t0 = etime(clock,tstart0);
-    fprintf(fid,fig_list(i));
-    fprintf(fid,' %d  %3.8f   %d   %d \n',t0,objo,runhisto.iter,n2);
+    fprintf(fid,fig_list(j));
+    fprintf(fid,' %d  %3.3f   %d   %d \n',round(t0),objo,runhisto.iter,n2);
 
 
     % other solver
@@ -57,6 +57,6 @@ for j = 1:length(fig_list)
     [L2,S2,i,runhist_pcp] = root_pcp(Im,lambda,mu);
     t2 = toc;
     obj2 = sum(svd(L2)) + lambda*sum(abs(S2(:))) + mu*norm(L2 + S2 - Im,'fro');
-    fprintf(fid,fig_list(i));
-    fprintf(fid,' %d  %3.8f   %d   %d \n',t0,objo,runhisto.iter,n2);
+    fprintf(fid,fig_list(j));
+    fprintf(fid,' %d  %3.3f   %d   %d \n',round(t2),objo,runhisto.iter,n2);
 end
