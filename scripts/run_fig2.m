@@ -1,25 +1,36 @@
 
 clear;
 clc;
-data_base_path = fullfile('..', 'data', 'VBM4D_rawRGB');
+data_base_path = "/data/sxd/data/VBM4D_rawRGB";
 results_path = fullfile('..', 'results');
 if ~exist(results_path, 'dir'), mkdir(results_path); end
 
 % Add necessary paths explicitly
 addpath(genpath('./root_pcp_code'));
 addpath(genpath("../src"));
+addpath(genpath("/data/sxd/srpcp/srPCP/code/"))
 
 % Define datasets with clear names and corresponding folder names
 datasets = {
-    'basketball player', 'M0001';
-    'windmill',          'M0005';
-    'table tennis',      'M0008';
     'billiards',         'M0009';
-    'street',            'M0010';
     'store',             'M0016';
     'tea set',           'M0017';
+    'table tennis',      'M0008';
+    'basketball player', 'M0001';
+    'windmill',          'M0005';
+    'street',            'M0010';
     'flag',              'M0020'
 };
+colors = [
+    0, 0.4470, 0.7410;
+    0.8500, 0.3250, 0.0980;
+    0.9290, 0.6940, 0.1250;
+    0.4940, 0.1840, 0.5560;
+    0.4660, 0.6740, 0.1880;
+    0.3010, 0.7450, 0.9330;
+    0.6350, 0.0780, 0.1840;
+    0.0000, 0.0000, 0.0000
+];
 num_datasets = size(datasets, 1);
 results_rank = cell(1, num_datasets); 
 
@@ -72,13 +83,12 @@ for j = 1:num_datasets
 end
 
 
-colors = lines(num_datasets); 
-lineStyles = {'-', ':', '--', '-.', '-', ':', '--', '-.'}; % Can be extended if needed
+lineStyles = {'-', ':', '--', '-.', '-.', '--', '-', ':'}; % Can be extended if needed
 markers = 'none'; % Same for all plots
 
 figure;
 hold on;
-grid on;
+% grid on;
 box on;
 
 
@@ -99,9 +109,10 @@ set(groot, 'defaulttextinterpreter', 'latex');
 set(groot, 'defaultLegendInterpreter', 'latex');
 
 xlim([0, 80]);
-xlabel("Iterations ($k$)", 'FontSize', 12);
-ylabel("Rank$(L_k)$", 'FontSize', 12);
-title("Rank Identification Across Datasets", 'FontSize', 14);
+xlabel("Iterations ($i$)",'FontSize',10)
+ylabel("${\rm Rank}\,(L^i)$",'FontSize',10)
+% Add title without bold formatting
+title("Rank Identification",'FontSize',12)
 
 legend_names = datasets(:, 1);
 lgd = legend(legend_names, 'FontSize', 10, 'Location', 'northeast', 'NumColumns', 2);

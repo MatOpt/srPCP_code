@@ -12,7 +12,7 @@ end
 fid = fopen(output_filepath,"a");
 
 str = '../data/VBM4D_rawRGB/';
-fig_list = ["M0005","M0009","M0016","M0017"];
+fig_list = ["M0008","M0009","M0016","M0017"];
 fprintf(fid,"Name  Time  obj   iter  dim\n");
 for j = 1:length(fig_list)
     fig = fullfile(str,fig_list(j));
