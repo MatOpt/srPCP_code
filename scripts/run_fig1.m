@@ -40,7 +40,7 @@ fprintf('the base method time = %2.1f, obj = %8.3f',t1,obj);
 
 
 %save result
-filepath = "../results/windmill";
+filepath = "../results/windmill/";
 D30 = imadjust(reshape(Im(:,30),n,m));
 D60 = imadjust(reshape(Im(:,60),n,m));
 D90 = imadjust(reshape(Im(:,90),n,m));
