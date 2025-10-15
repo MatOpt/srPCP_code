@@ -58,7 +58,7 @@ Z60 = D60 - LS60;
 Z90 = D90 - LS90;
 imwrite(D30,filepath+"origin30.png");
 imwrite(D60,filepath+"origin60.png");
-imwrite(D60,filepath+"origin60.png");
+imwrite(D90,filepath+"origin90.png");
 imwrite(L30,filepath+"Lbar30.png");
 imwrite(L60,filepath+"Lbar60.png");
 imwrite(L90,filepath+"Lbar90.png");
