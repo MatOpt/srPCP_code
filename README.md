@@ -54,7 +54,7 @@ unzip ./data/VBM4D_rawRGB.zip -d ./data
 rm ./data/VBM4D_rawRGB.zip
 ```
 After running these commands, the required data will be located in the ./data/VBM4D_rawRGB directory.
-he final directory structure should look like this:
+The final directory structure should look like this:
 ```
 ./
 ├── data/
