@@ -4,7 +4,7 @@ warning off;
 addpath(genpath(pwd));
 addpath(genpath('./root_pcp_code'))
 addpath(genpath("../src"))
-output_filepath = "../results/table3_result.txt";
+output_filepath = "../result/table3_result.txt";
 if ~exist(output_filepath,'file')
     fid = fopen(output_filepath,"w");
     fclose(fid);
@@ -13,10 +13,10 @@ fid = fopen(output_filepath,"a");
 %%%%%read the vedio%%%%%%%%%%%%%%%
 str = '../data/VBM4D_rawRGB/';
 fig_list = ["M0008","M0009","M0016","M0017"];
-fprintf(fid,"Name  Time  obj  iter  dim");
+fprintf(fid,"Name  Time  obj  iter  dim")
 for j = 1:length(fig_list)
     fig = strcat(str,fig_list(j));
-    files = dir(strcat(fig,'*.png'));
+    files = dir(strcat(fig,'*.jpg'));
     number_files = length(files);
     n2 = number_files;
     info = imfinfo([str,files(1).name]);
@@ -39,8 +39,8 @@ for j = 1:length(fig_list)
     options.tol = 1e-5;
     %test of continue
 
-    fprintf('the base method')
-    options.update_method = 'base';
+    fprintf('the overparametrized method')
+    options.update_method = 'overparametrized';
     % tic;
     tstart0 = clock;
     [Lbaro,Sbaro,objo,itero,runhisto] = AltMin(Im,lambda,mu,options);

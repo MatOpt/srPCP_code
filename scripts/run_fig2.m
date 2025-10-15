@@ -1,57 +1,23 @@
-
 clear;
 clc;
-data_base_path = fullfile('..', 'data', 'VBM4D_rawRGB');
-results_path = fullfile('..', 'results');
-if ~exist(results_path, 'dir'), mkdir(results_path); end
+warning off;
+addpath(genpath(pwd));
+addpath(genpath('./root_pcp_code'))
+addpath(genpath("../src"))
 
-% Add necessary paths explicitly
-addpath(genpath('./root_pcp_code'));
-addpath(genpath("../src"));
-
-% Define datasets with clear names and corresponding folder names
-datasets = {
-    'basketball player', 'M0001';
-    'windmill',          'M0005';
-    'table tennis',      'M0008';
-    'billiards',         'M0009';
-    'street',            'M0010';
-    'store',             'M0016';
-    'tea set',           'M0017';
-    'flag',              'M0020'
-};
-num_datasets = size(datasets, 1);
-results_rank = cell(1, num_datasets); 
-
-for j = 1:num_datasets
-    dataset_name = datasets{j, 1};
-    folder_name = datasets{j, 2};
-    
-    fprintf('Processing dataset: %s (%s)...\n', dataset_name, folder_name);
-    
-    % Construct full path to image files
-    image_folder = fullfile(data_base_path, folder_name);
-    files = dir(fullfile(image_folder, '*.png'));
-    
-    if isempty(files)
-        warning('No PNG files found in folder: %s. Skipping.', image_folder);
-        continue; % Skip to the next dataset
-    end
-    
+str = '../data/VBM4D_rawRGB/';
+fig_list = ["M0001","M0005","M0008","M0009","M0010","M0016","M0017","M0020"];
+for j = 1:length(fig_list)
+    fig = strcat(str,fig_list(j));
+    files = dir(strcat(fig,'*.jpg'));
     number_files = length(files);
     n2 = number_files;
-    
-    % Read first image to get dimensions
-    info = imfinfo(fullfile(image_folder, files(1).name));
+    info = imfinfo([str,files(1).name]);
     m = info.Width;
     n = info.Height;
     n1 = m * n;
-    
-    % Pre-allocate matrix for the image sequence
-    Im = zeros(n1, number_files);
-    
-    % Load all images in the sequence
-    for i = 1:number_files
+    Im = zeros(n1,number_files);
+    for i=1:number_files
         rgb = imread([str,files(i).name]);
         grayim = im2double(rgb2gray(rgb));
         grayim = imresize(grayim,[m,n]);
@@ -59,54 +25,59 @@ for j = 1:num_datasets
         Im(:,i) = I;
     end
 
-    % --- Run Algorithm ---
-    lambda = 1 / sqrt(n1);
-    mu = sqrt(n2 / 2);
+    % run Alt
+    lambda = 1/sqrt(n1);
+    mu = sqrt(n2/2);
     options.tol = 1e-5;
+    %test of continue
     options.update_method = 'overparametrized';
-    
-    [~, ~, ~, ~, runhist] = AltMin(Im, lambda, mu, options);
-    
-
-    results_rank{j} = runhist.L_rank;
+    % tic;
+    [Lbar,Sbar,obj,iter,runhist] = AltMin(Im,lambda,mu,options);
+    if j == 1; basketball_rank = runhist.L_rank; end
+    if j == 2; windmill_rank = runhist.L_rank; end
+    if j == 3; tabletennis_rank = runhist.L_rank; end
+    if j == 4; billiards_rank = runhist.L_rank; end
+    if j == 5; street_rank = runhist.L_rank; end
+    if j == 6; store_rank = runhist.L_rank; end
+    if j == 7; teaset_rank = runhist.L_rank; end
+    if j == 8; flag_rank = runhist.L_rank; end
 end
 
+colors = [
+    0, 0.4470, 0.7410;
+    0.8500, 0.3250, 0.0980;
+    0.9290, 0.6940, 0.1250;
+    0.4940, 0.1840, 0.5560;
+    0.4660, 0.6740, 0.1880;
+    0.3010, 0.7450, 0.9330;
+    0.6350, 0.0780, 0.1840;
+    0.0000, 0.0000, 0.0000
+];
+lineStyles = {'-', ':', '--', '-.', '-.', '--', '-', ':'};  
+markers = {'none', 'none', 'none', 'none', 'none', 'none', 'none', 'none'};
 
-colors = lines(num_datasets); 
-lineStyles = {'-', ':', '--', '-.', '-', ':', '--', '-.'}; % Can be extended if needed
-markers = 'none'; % Same for all plots
 
 figure;
-hold on;
-grid on;
-box on;
+set(groot,'defaultAxesTickLabelInterpreter','latex');
+set(groot,'defaulttextinterpreter','latex');
+set(groot,'defaultLegendInterpreter','latex');
 
+plot(billiards_rank,'LineStyle',lineStyles{1},'Color',colors(1,:),'marker',markers{1},'linewidth',2); hold on
+plot(store_rank,'LineStyle',lineStyles{2},'Color',colors(2,:),'marker',markers{2},'linewidth',2); hold on
+plot(teaset_rank,'LineStyle',lineStyles{3},'Color',colors(3,:),'marker',markers{3},'linewidth',2); hold on
+plot(tabletennis_rank,'LineStyle',lineStyles{4},'Color',colors(4,:),'marker',markers{4},'linewidth',2); hold on
+plot(basketball_rank,'LineStyle',lineStyles{5},'Color',colors(5,:),'marker',markers{5},'linewidth',2); hold on
+plot(windmill_rank,'LineStyle',lineStyles{6},'Color',colors(6,:),'marker',markers{6},'linewidth',2); hold on
+plot(street_rank,'LineStyle',lineStyles{7},'Color',colors(7,:),'marker',markers{7},'linewidth',2); hold on
+plot(flag_rank,'LineStyle',lineStyles{8},'Color',colors(8,:),'marker',markers{8},'linewidth',2); hold on
+xlim([0,80])
+xlabel("Iterations ($i$)",'FontSize',10)
+ylabel("${\rm Rank}\,(L^i)$",'FontSize',10)
+% Add title without bold formatting
+title("Rank Identification",'FontSize',12)
 
-for j = 1:num_datasets
-
-    if ~isempty(results_rank{j})
-        plot(results_rank{j}, ...
-             'LineStyle', lineStyles{mod(j-1, length(lineStyles)) + 1}, ...
-             'Color', colors(j, :), ...
-             'Marker', markers, ...
-             'LineWidth', 2);
-    end
-end
-hold off;
-
-set(groot, 'defaultAxesTickLabelInterpreter', 'latex');
-set(groot, 'defaulttextinterpreter', 'latex');
-set(groot, 'defaultLegendInterpreter', 'latex');
-
-xlim([0, 80]);
-xlabel("Iterations ($k$)", 'FontSize', 12);
-ylabel("Rank$(L_k)$", 'FontSize', 12);
-title("Rank Identification Across Datasets", 'FontSize', 14);
-
-legend_names = datasets(:, 1);
-lgd = legend(legend_names, 'FontSize', 10, 'Location', 'northeast', 'NumColumns', 2);
-
-
-output_filename = fullfile(results_path, 'rank_identification.eps');
-fprintf('Saving figure to: %s\n', output_filename);
-print(gcf, '-depsc', '-r900', output_filename);
+% Add legend with optimal position
+lgd = legend("billiards","store","tea set","table tennis","basketball player","windmill","street","flag",'FontSize',10);
+set(lgd,'Location','northeast','NumColumns',2)  % This will automatically choose the best location for the legend
+img = gcf;
+print(img,'-depsc','-r900','../result/rank_identification.eps');

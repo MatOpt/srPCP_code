@@ -4,7 +4,7 @@ warning off;
 addpath(genpath(pwd));
 addpath(genpath('./root_pcp_code'))
 addpath(genpath("../src"))
-output_filepath = "../results/table4_result.txt";
+output_filepath = "../result/table4_result.txt";
 if ~exist(output_filepath,'file')
     fid = fopen(output_filepath,"w");
     fclose(fid);
@@ -16,7 +16,7 @@ fig_list = ["M0001","M0005","M0010","M0020"];
 fprintf(fid,"Name  Time  dim  svd  order rank");
 for j = 1:length(fig_list)
     fig = strcat(str,fig_list(j));
-    files = dir(strcat(fig,'*.png'));
+    files = dir(strcat(fig,'*.jpg'));
     number_files = length(files);
     n2 = number_files;
     info = imfinfo([str,files(1).name]);
@@ -61,5 +61,5 @@ for j = 1:length(fig_list)
     t1 = etime(clock,tstart1);
     fprintf(fid,fig_list(i));
     fprintf(fid,'  %d  %d  %d   %d  %d \n',t1,n2,runhist.svd_time(end), ...
-        runhist.sorting_time(end),runhist.L_rank(end));
+        runhist.order_time(end),runhist.L_rank(end));
 end

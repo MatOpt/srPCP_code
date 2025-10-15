@@ -4,7 +4,7 @@ warning off;
 addpath(genpath(pwd));
 addpath(genpath('./root_pcp_code'))
 addpath(genpath("../src"))
-output_filepath = "../results/table2_result.txt";
+output_filepath = "../result/table2_result.txt";
 if ~exist(output_filepath,'file')
     fid = fopen(output_filepath,"w");
     fclose(fid);
@@ -68,7 +68,7 @@ for i = 1:size(para,1)
         [Lbar,Sbar,obj,iter,runhist] = AltMin(D,lambda,mu,options);
         t1 = etime(clock,tstart1);
         fprintf(fid,"base   %d   %d   %1.0e   %5.2f  %d   %d   %d \n",n1,r,sigma,obj,round(t1),...
-            round(runhist.svd_time(end)),round(runhist.sorting_time(end)));
+            round(runhist.svd_time(end)),round(runhist.order_time(end)));
 
         options.update_method = 'overparametrized';
         % options.updateS_method = 'mask';
@@ -80,7 +80,7 @@ for i = 1:size(para,1)
         t2 = etime(clock,tstart2);
 
         fprintf(fid,"over   %d   %d   %1.0e   %5.2f  %d   %d   %d \n",n1,r,sigma,obj,round(t2),...
-            round(runhist.svd_time(end)),round(runhist.sorting_time(end)));
+            round(runhist.svd_time(end)),round(runhist.order_time(end)));
     
         % % other solver
     

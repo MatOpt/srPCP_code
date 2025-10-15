@@ -10,7 +10,7 @@ if ~exist(output_filepath,'file')
     fclose(fid);
 end
 fid = fopen(output_filepath,"a");
-n_list = [1000,2000,5000,10000];
+n_list = [1000,2000,5000,1000];
 sigma_list = [1e-1,1e-2,1e-3,1e-4];
 fprintf(fid,"method   dim   r   noise     obj   time   etaL  etaS\n");
 for i = 1:4

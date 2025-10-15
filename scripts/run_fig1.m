@@ -28,19 +28,39 @@ end
 lambda = 1/sqrt(n1);
 mu = sqrt(n2/2);
 options.tol = 1e-5;
+%test of continue
+
+fprintf('the overparametrized method')
+options.update_method = 'overparametrized';
+% tic;
+tstart0 = clock;
+[Lbaro,Sbaro,objo,itero,runhisto] = AltMin(Im,lambda,mu,options);
+
+t0 = etime(clock,tstart0);
+fprintf('the overparametrized time = %2.1f, obj = %3.8f',t0,objo);
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%base
+options.continue = 0;
 options.update_method = 'base';
 fprintf('the base method');
 % tic;
 tstart1 = clock;
 [Lbar,Sbar,obj,iter,runhist] = AltMin(Im,lambda,mu,options);
 t1 = etime(clock,tstart1);
-fprintf('the base method time = %2.1f, obj = %8.3f',t1,obj);
-
+fprintf('the base method time = %2.1f, obj = %3.8f',t1,obj);
+% other solver
+fprintf('\n\n');
+% 
+tic;
+[L2,S2,i,runhist_pcp] = root_pcp(Im,lambda,mu);
+t2 = toc;
+obj2 = sum(svd(L2)) + lambda*sum(abs(S2(:))) + mu*norm(L2 + S2 - Im,'fro');
+fprintf('time = %2.1f, obj = %3.8f',t2,obj2);
+fprintf('\n');
 
 %save result
-filepath = "../results/windmill";
+filepath = "../result/windmill";
 D30 = imadjust(reshape(Im(:,30),n,m));
 D60 = imadjust(reshape(Im(:,60),n,m));
 D90 = imadjust(reshape(Im(:,90),n,m));
