@@ -1,7 +1,7 @@
 
 clear;
 clc;
-data_base_path = "/data/sxd/data/VBM4D_rawRGB";
+data_base_path = fullfile('..', 'data', 'VBM4D_rawRGB');
 results_path = fullfile('..', 'results');
 if ~exist(results_path, 'dir'), mkdir(results_path); end
 
