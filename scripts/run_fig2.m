@@ -8,7 +8,6 @@ if ~exist(results_path, 'dir'), mkdir(results_path); end
 % Add necessary paths explicitly
 addpath(genpath('./root_pcp_code'));
 addpath(genpath("../src"));
-addpath(genpath("/data/sxd/srpcp/srPCP/code/"))
 
 % Define datasets with clear names and corresponding folder names
 datasets = {
