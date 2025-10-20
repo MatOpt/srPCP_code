@@ -38,7 +38,7 @@ The data used in this paper consists of two parts:
 - **Real-world data**: Primarily sourced from the dataset provided in:  
   > Chen C, Chen Q, Do MN, Koltun V (2019) Seeing Motion in the Dark. *Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)*, 3185-3194.
 The dataset is available at:  
-[https://github.com/cchen156/Seeing-Motion-in-the-Dark](https://github.com/cchen156/Seeing-Motion-in-the-Dark), retrieved on January, 2024 (estimated).
+[https://github.com/cchen156/Seeing-Motion-in-the-Dark](https://github.com/cchen156/Seeing-Motion-in-the-Dark), retrieved on January, 2024.
 
 Due to its size, the dataset is not included in this repository. To download and set it up, please run the following commands from the project's root directory:
 
