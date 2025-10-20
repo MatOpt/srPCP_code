@@ -72,13 +72,13 @@ This code can be run in [MATLAB R2024a](https://ww2.mathworks.cn/products/new_pr
 This directory contains the folders `src` and `scripts`:
 * `src`: includes the source code of the paper. See `src/README.md` for a description of this folder. This folder is organized as follows:
   * `src/AltMin.m`: the code  for solving the square root principal component pursuit (srPCP) problem:
-``min_{L,S} \|L\|_* + lambda \|S\|_1 + mu \|L+S-D\|_F`` 
+$$\min_{L,S} \parallel L \parallel_* + \lambda \parallel S\parallel_1 + \mu \parallel L+S-D\parallel_F$$
   by both the Alternating Minimization method (`AltMin`) and its accelerated version (`Acc_AltMin`) in the paper. `Acc_AltMin` is implemented through the same function by modifying the input `options` parameter (specifically `update_method` and `acceleration_rank`).
 
-  * `src/UpdateL.m`: the code for updating `L` in the paper.
-  * `src/UpdateS.m`: the code for updating `S` in the paper.
-  * `src/UpdateS_sub.m`: the code for updating `S` subproblem:
-  ``min_s ||s-a||_2 + lambda*||s||_1, given a \in R^n`` in the paper.
+  * `src/UpdateL.m`: the code for updating `$L$` in the paper.
+  * `src/UpdateS.m`: the code for updating `$S$` in the paper.
+  * `src/UpdateS_sub.m`: the code for updating `$S$` subproblem:
+    $$\min_s \parallel s-a\parallel_2 + \lambda \parallel s\parallel_1$$, given $a \in \mathbb{R}^n$ in the paper.
 * `scripts`: contains the scripts used to replicate the experiments in the paper. See the *Replicating* section below for details.
 
 
@@ -92,22 +92,22 @@ The results are presented across multiple files containing numerical experiments
   - It contains image files showing decomposition results of selected frames from the windmill video dataset, presented in `Figure 1` in the paper, using the AltMin algorithm. 
   - The folder includes 15 PNG images representing different components for the 30th, 60th, and 90th frames of the video:
     - Original frames: origin30.png, origin60.png, origin90.png
-    - Background components (L): Lbar30.png, Lbar60.png, Lbar90.png
-    - Foreground components (S): Sbar30.png, Sbar60.png, Sbar90.png
-    - Denoised images (L+S): LSbar30.png, LSbar60.png, LSbar90.png
-    - Estimated noise components (Z = D-L-S): Z30.png, Z60.png, Z90.png
+    - Background components ($L$): Lbar30.png, Lbar60.png, Lbar90.png
+    - Foreground components ($S$): Sbar30.png, Sbar60.png, Sbar90.png
+    - Denoised images ($L+S$): LSbar30.png, LSbar60.png, LSbar90.png
+    - Estimated noise components ($Z = D-L-S$): Z30.png, Z60.png, Z90.png
 
 * `rank_identification.eps`: 
   It is `Figure 2` in the paper.
   
 ### Data Files
 * `table1_result.txt`: Comparison of `AltMin` vs `ADMM` methods with columns:
-  - method, dimension (dim), rank (r), noise level
+  - method, dimension (dim), rank ($r$), noise level
   - objective value (obj), computation time (time)
   - etaL and etaS values
 
 * `table2_result.txt`: Extended method comparison with additional columns:
-  - method, parameter ($\mu$), dimension (dim), rank (r), noise level
+  - method, parameter ($\mu$), dimension (dim), rank ($r$), noise level
   - objective value (obj), computation time (time)
   - SVD  and sorting time 
   - Includes dimensions up to 50,000
