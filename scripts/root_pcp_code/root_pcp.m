@@ -1,7 +1,6 @@
 function [L, S,i,runhist] = root_pcp (D, lambda, mu)
-% [L, S] = sqrt_pcp( D, lambda, mu )
-%
-% Solve the following problem:
+% 
+% Using ADMM to solve the following problem:
 % min_{L,S}
 %         ||L||_* + lambda * ||S||_1 + mu * ||L+S-D||_F
 % This is first transformed to the problem
@@ -11,6 +10,10 @@ function [L, S,i,runhist] = root_pcp (D, lambda, mu)
 %      S1 = S2
 %      L2 + S2 + Z = D.
 % The algorithm conducts ADMM splitting as (L1,S1,Z),(L2,S2).
+% Implemented according to ``Zhang J, Yan J, Wright J (2021) Square Root 
+% Principal Component Pursuit: Tuning-Free Noisy Robust Matrix Recovery. 
+% Advances in Neural Information Processing Systems 34: 29464–29475.''
+
 tstart = clock;
 [n,p] = size(D);
 rho = 0.1; % Augmented Lagrangian parameter
@@ -90,3 +93,30 @@ if flag_converge == 0
 end
 
 return
+
+
+
+function [X, nuclearX] =  prox_nuclear(Y,c)
+
+[U,S,V] = svd(Y,'econ');
+
+S_new = sign(S) .* max(abs(S)-c, 0);
+X = U * S_new * V';
+nuclearX = sum(sum(abs(S_new)));
+
+function X = prox_l1(Y,c)
+
+X = sign(Y) .* max(abs(Y)-c, 0);
+
+function Y = prox_fro(X,c)
+
+n = norm(X,'fro');
+
+if n <= c
+	Y = zeros(size(X));
+else
+	Y = (1 - c/n) * X;
+end
+
+
+

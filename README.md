@@ -127,13 +127,9 @@ The results are presented across multiple files containing numerical experiments
 * To replicate the result in the `Figure 1` in the paper, please run `scripts/run_fig1.m`.
 * To replicate the result in the `Figure 2` in the paper, please run `scripts/run_fig2.m`.
 
-Note: The code in `scripts/root_pcp_code/` directory is adapted from the official implementation of the following paper:
+Note: We re-implemented the code of ADMM for solving srPCP problem, i.e., `root_pcp.m` in `scripts/root_pcp_code/` directory, based on the following paper:
 
 > Zhang J, Yan J, Wright J (2021) Square Root Principal Component Pursuit: Tuning-Free Noisy Robust Matrix Recovery. *Advances in Neural Information Processing Systems 34*: 29464–29475.
-
-The original source code was obtained from the paper's [supplementary material](https://openreview.net/attachment?id=NNZ0caVe2ak&name=supplementary_material).
-We have made minor modifications to the `root_pcp.m` file to extract additional outputs required for our project.
-
 
 ## Ongoing Development
 
