@@ -38,7 +38,7 @@ The data used in this paper consists of two parts:
 - **Real-world data**: Primarily sourced from the dataset provided in:  
   > Chen C, Chen Q, Do MN, Koltun V (2019) Seeing Motion in the Dark. *Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)*, 3185-3194.
 The dataset is available at:  
-[https://github.com/cchen156/Seeing-Motion-in-the-Dark](https://github.com/cchen156/Seeing-Motion-in-the-Dark)  
+[https://github.com/cchen156/Seeing-Motion-in-the-Dark](https://github.com/cchen156/Seeing-Motion-in-the-Dark), retrieved on January, 2024.
 
 Due to its size, the dataset is not included in this repository. To download and set it up, please run the following commands from the project's root directory:
 
@@ -75,10 +75,10 @@ This directory contains the folders `src` and `scripts`:
 $$\min_{L,S} \parallel L \parallel_* + \lambda \parallel S\parallel_1 + \mu \parallel L+S-D\parallel_F$$
   by both the Alternating Minimization method (`AltMin`) and its accelerated version (`Acc_AltMin`) in the paper. `Acc_AltMin` is implemented through the same function by modifying the input `options` parameter (specifically `update_method` and `acceleration_rank`).
 
-  * `src/UpdateL.m`: the code for updating `$L$` in the paper.
-  * `src/UpdateS.m`: the code for updating `$S$` in the paper.
-  * `src/UpdateS_sub.m`: the code for updating `$S$` subproblem:
-    $$\min_s \parallel s-a\parallel_2 + \lambda \parallel s\parallel_1$$, given $a \in \mathbb{R}^n$ in the paper.
+  * `src/UpdateL.m`: the code for updating $L$ in the paper.
+  * `src/UpdateS.m`: the code for updating $S$ in the paper.
+  * `src/UpdateS_sub.m`: the code for updating $S$ subproblem:
+    $$\min_s \parallel s-a\parallel_2 + \lambda \parallel s\parallel_1$$ with some given $a \in R^n$.
 * `scripts`: contains the scripts used to replicate the experiments in the paper. See the *Replicating* section below for details.
 
 
