@@ -10,6 +10,7 @@ This directory contains the source code for the Alternating minimization methods
 | `UpdateL.m` | Function for updating the low-rank matrix L |
 | `UpdateS.m` | Function for updating the sparse matrix S |
 | `UpdateS_sub.m` | Solver for the subproblem in updating S and L components |
+| `prox_l1.m` | Proximal operator for the $\ell_1$-norm (soft-thresholding operator) |
 
 ## Problem Formulation
 
@@ -95,6 +96,26 @@ $$\min_s \|s-a\|_2 + \lambda \|s\|_1$$
 ```matlab
 [normdiff, k, s] = UpdateS_sub(a, lambda);
 ```
+
+### prox_l1.m
+
+This function computes the proximal operator for the $\ell_1$-norm, also known as the soft-thresholding operator. Given an input vector or matrix $u$ and a threshold parameter $c$, it returns:
+
+$$x = \text{prox}_{c\|\cdot\|_1}(u) = \text{sign}(u) \odot \max(|u| - c, 0)$$
+
+where $\odot$ denotes element-wise multiplication. This operator is fundamental in solving $\ell_1$-regularized optimization problems and is used throughout the alternating minimization algorithm.
+
+**Usage:**
+```matlab
+x = prox_l1(u, c);
+```
+
+#### Input Parameters
+- **u**: Input vector or matrix
+- **c**: Threshold parameter (non-negative scalar)
+
+#### Output Parameters
+- **x**: Result of the soft-thresholding operation, with the same dimensions as $u$
 
 
 ## Examples of Using Different Options
