@@ -79,6 +79,7 @@ $\min_{L,S} \parallel L \parallel_* + \lambda \parallel S\parallel_1 + \mu \para
   * `src/UpdateS.m`: the code for updating $S$ in the paper.
   * `src/UpdateS_sub.m`: the code for updating $S$ subproblem:
     $\min_{s} \parallel s-a \parallel_2 + \lambda \parallel s \parallel_1  \text{with some given } a\in\mathbb{R}^n$.
+  * `src/prox_l1.m`: the code for computing the proximal operator for the L1 norm.
 * `scripts`: contains the scripts used to replicate the experiments in the paper. See the *Replicating* section below for details.
 
 
